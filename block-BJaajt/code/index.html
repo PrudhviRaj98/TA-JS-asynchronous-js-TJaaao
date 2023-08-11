@@ -4,29 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-      }
-      input {
-        margin-bottom: 2rem;
-        padding: 0.5rem;
-      }
-    </style>
     <link rel="stylesheet" href="./index.css" />
   </head>
-  <body>
-    <input type="text" placeholder="GitHub Username" />
-    <div>
+  <body class="body">
+    <div class="input">
+      <input type="text" placeholder="GitHub Username" />
+    </div>
+    <div class ="github">
       <img src="" alt="" />
       <h3>prudhvi raj</h3>
       <p>@facebook</p>
-      <ul>
-        <li class="followers">followers: 222</li>
-        <li class="following">following: 111</li>
-      </ul>
+      <ul class="followers"></ul>
+      <ul class="following"></ul>
+    </div>
+      <div class="new">
+        <img class="cat-image" src="https://api.thecatapi.com/v1/images/search?limit=1&size=full" alt="" />
+        <button class="btn">Get New Images</button>
+      </div>
+    </body>
     </div>
   </body>
   <script src="./index.js"></script>
