@@ -1,19 +1,32 @@
 1. Create a promise. Have it resolve with a value of `Promise Resolved!` in resolve after a delay of 1000ms, using `setTimeout`. Print the contents of the promise after it has been resolved by passing `console.log` to `.then`
 
 ```js
-// Your code
+function fetchData(url) {
+  return new Promise((resolve, reject) => {
+    xhr = XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.onload = () => setTimeout(reslove(url));
+    xhr.onerror = () => reject('something went wrong');
+    xhr.send();
+  });
+}
+let datapromise = fetchData('Promise Resolved!').then((res) =>
+  console.log(res)
+);
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
-// Your code
+Promise.reject('rejected promise').catch((res) => console.log(res));
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
-// Your code
+Promise.reject('rejected promise')
+  .catch((res) => console.log(res))
+  .finally(console.log('promise settled'));
 ```
 
 4. What will be the output of the code below.
@@ -30,10 +43,14 @@ Promise.resolve().then(() => console.log('C'));
 console.log('D');
 ```
 
+// output : A, D, C, B
+
 5. Write a function named `wait` that accepts `time` in ms returns a promise. The promise gets resolved after given time.
 
 ```js
-// Your code
+function wait(time) {
+  return setTimeout(new Promise(), time);
+}
 ```
 
 6. Do the following:
@@ -46,7 +63,9 @@ console.log('D');
 - Catch the error using `.catch`
 
 ```js
-// Your code
+new Promise.resolve(21).then((num)=> num+10).then((num1)=> num1+100).then((num2)=> if(num2 > 100){
+    console.log("error");
+}).catch((error) => console.error("catch error", error));
 ```
 
 7. Do the following:
@@ -58,7 +77,16 @@ console.log('D');
 - Use `.then` and log the value
 
 ```js
-// Your code
+new Promise.resolve(['A'])
+  .then((res) => {
+    res.push('B');
+  })
+  .then((res1) => {
+    return res1;
+  })
+  .then((res2) => {
+    console.log(res2);
+  });
 ```
 
 8. Do the following:
@@ -69,7 +97,18 @@ console.log('D');
 - Chain `.then` on above and return `4` also check the value you get access to by logging
 
 ```js
-// Your code
+let first = new Promise.resolve(1);
+
+first
+  .then((num) => {
+    return num + 1;
+  })
+  .then((num2) => {
+    return num2 + 1;
+  })
+  .then((num3) => {
+    return num3 + 1;
+  });
 ```
 
 9. Do the following:
@@ -80,10 +119,21 @@ console.log('D');
 - Use `.then` on `first` and return `4` also check the value you get access to by logging
 
 ```js
-// Your code
+let first = new Promise.resolve(1)
+  .then((num) => {
+    return num + 1;
+  })
+  .then((num2) => {
+    return num2 + 1;
+  })
+  .then((num3) => {
+    return num3 + 1;
+  });
 ```
 
 10. Try to understand the difference between the problem 8 and 9. Write your observation.
+
+In problem 8, I have chained using varibale that is assigned to a promise where as 9, I chained directly to the promise
 
 11. Do the following
 
@@ -93,5 +143,12 @@ console.log('D');
 - Use `.then` to log the value
 
 ```js
-// Your code
+new Promise.reslove('John')
+  .then((res) => {
+    return new Promise.reslove('Arya');
+  })
+  .then((res1) => {
+    console.log(res1);
+    return setTimeout(new Promise.reslove('Bran')).then((res1.2)=> console.log(res1.2));
+  });
 ```
