@@ -7,7 +7,7 @@ function fetchData(url) {
     xhr.open('GET', url);
     xhr.onload = () => setTimeout(reslove(url));
     xhr.onerror = () => reject('something went wrong');
-    xhr.send();
+    xhr.send(); // test send
   });
 }
 let datapromise = fetchData('Promise Resolved!').then((res) =>
