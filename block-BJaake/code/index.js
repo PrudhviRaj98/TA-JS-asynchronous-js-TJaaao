@@ -1,4 +1,4 @@
-let url = 'https://api.spaceflightnewsapi.net/v3/articles?_limit=30';
+let url = 'https://api.spaceflightnewsapi.net/v3/articles?_limit=30/wefewf';
 const root = document.querySelector('.old');
 const body = document.querySelector('.body');
 const select = document.querySelector('select');
@@ -40,6 +40,10 @@ function createUI(data) {
 
 data = fetch(url)
   .then((user) => {
+    if (!user.ok) {
+      body.innerHTML = '';
+      throw new Error(user.status);
+    }
     return user.json();
   })
   .then((data) => {
@@ -62,6 +66,12 @@ data = fetch(url)
         }
       });
     });
+  })
+  .catch((err) => {
+    let newpara = document.createElement('p');
+    newpara.innerHTML = 'Something went wrong';
+    body.append(newpara);
+    console.log(err);
   });
 
 function dropDown(options) {
