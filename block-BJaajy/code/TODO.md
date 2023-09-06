@@ -1,20 +1,11 @@
 - Create four promises that resolve after 1, 2, 3 and 4 seconds with a random value. Using `Promise.all` log the value of each promise that it resolved with.
 
 ```js
-let first = new Promise((res, rej) => {
-  setTimeout(() => res(1), 1000);
-});
-
-let two = new Promise((res, rej) => {
-  setTimeout(() => res(2), 2000);
-});
-
-let three = new Promise((res, rej) => {
-  setTimeout(() => res(3), 3000);
-});
-
-let four = new Promise((res, rej) => {
-  setTimeout(() => res(4), 4000);
+let num = [1, 2, 3, 4];
+let first = num.map((ele) => {
+  new Promise((res) => {
+    setTimeout(() => res(Math.random()), ele * 1000);
+  });
 });
 
 let all = Promise.all([first, two, three, four]).then((ele) => {
@@ -26,6 +17,17 @@ let all = Promise.all([first, two, three, four]).then((ele) => {
 
 ```js
 let allusers = ['PrudhviRaj98', 'rahul', 'rohan', 'vijay', 'ravi'];
+
+let usernames = allusers.map((user) => {
+  let github = `https://api.github.com/users/${user}`;
+  return fetch(github).then((res) => res.json());
+});
+
+Promise.all(usernames).then((user) => {
+  user.forEach((one) => {
+    one.followers;
+  });
+});
 
 const prom = Promise.all(
   allusers.map((user) => {
@@ -43,7 +45,14 @@ const prom = Promise.all(
 let one = 'https://random.dog/woof.json';
 let two = 'https://aws.random.cat/meow';
 
-const race = Promise.race(one, two);
+let promiseOne = fetch('https://random.dog/woof.json').then((res) => {
+  res.json();
+});
+let promiseTwo = fetch('https://aws.random.cat/meow').then((res) => {
+  res.json();
+});
+
+Promise.race([promiseOne, promiseTwo]);
 ```
 
 - Use `Promise.allSettled` to log the value of each promise from the given list of promises. And also check if `Promise.all` works with `one`, `two` and `three` or not
@@ -59,7 +68,7 @@ const three = new Promise((resolve, reject) =>
   setTimeout(() => resolve('John'), 3000)
 );
 
-Promise.allSettled(one, two, three);
+Promise.allSettled(one, two, three).then((res) => console.log(res));
 ```
 
 - What will be the output of the following code snippet? How much time will it take for the promise to resolve?
