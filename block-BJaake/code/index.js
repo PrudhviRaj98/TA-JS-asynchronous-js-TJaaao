@@ -1,4 +1,4 @@
-let url = 'https://api.spaceflightnewsapi.net/v3/articles?_limit=30/wefewf';
+let url = 'https://api.spaceflightnewsapi.net/v3/articles?_limit=30';
 const root = document.querySelector('.old');
 const body = document.querySelector('.body');
 const select = document.querySelector('select');
