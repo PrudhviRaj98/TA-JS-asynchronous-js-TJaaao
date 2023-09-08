@@ -9,6 +9,7 @@ function displayUI(data) {
   let h3 = document.createElement('h3');
   h3.innerHTML = data.authors;
 
+  console.log(set);
   let button = document.createElement('button');
   button.innerText = `Show Characters : ${data.characters.length} `;
 
@@ -26,40 +27,48 @@ function displayUI(data) {
   close.classList.add('close');
   close.textContent = 'X';
 
+  const heading = document.createElement('p');
+  heading.innerHTML = 'Characters List';
+  heading.classList.add('heading');
+  ul.append(heading);
   articleDiv.append(h2, h3, button);
   articleDiv.appendChild(buttonDiv);
   articleBody.append(articleDiv);
 
   button.addEventListener('click', function () {
-    // const dropdown = document.getElementById('myDropdown');
-    if (buttonDiv.style.display === 'block') {
-      console.log('something');
-      buttonDiv.style.display = 'none';
-    } else {
-      buttonDiv.style.display = 'block';
-      ul.style.display = 'flex'; // Make the 'ul' a flex container
-      ul.style.flexWrap = 'wrap';
-    }
+    fetchForUI(data, ul, buttonDiv, close);
+  });
+}
 
-    let allcharacters = data.characters;
-    allcharacters.forEach((link) => {
-      fetch(link)
-        .then((res) => {
-          return res.json();
-        })
-        .then((ele) => {
-          let allNames = [];
-          allNames.push(ele);
-          // console.log(allNames);
-          allNames.forEach((singleObj) => {
-            console.log(singleObj.name);
-            const li1 = document.createElement('li');
-            li1.textContent = singleObj.name;
-            ul.appendChild(li1);
-            ul.appendChild(span);
+function fetchForUI(data, ul, buttonDiv, close) {
+  if (buttonDiv.style.display === 'block') {
+    buttonDiv.style.display = 'none';
+  } else {
+    buttonDiv.style.display = 'block';
+    ul.style.display = 'flex';
+    ul.style.flexWrap = 'wrap';
+  }
+
+  let allcharacters = data.characters;
+  allcharacters.forEach((link) => {
+    fetch(link)
+      .then((res) => {
+        return res.json();
+      })
+      .then((ele) => {
+        let allNames = [];
+        allNames.push(ele);
+        allNames.forEach((singleObj) => {
+          const li1 = document.createElement('li');
+          li1.textContent = singleObj.name;
+          ul.appendChild(li1);
+          ul.appendChild(close);
+
+          close.addEventListener('click', () => {
+            buttonDiv.style.display = 'none';
           });
         });
-    });
+      });
   });
 }
 
@@ -70,20 +79,9 @@ function beforeClick() {
     })
     .then((news) => {
       news.map((obj) => {
-        // afterClick(obj);
         displayUI(obj);
       });
     });
 }
-
-// function afterClick(objData, event) {
-
-//   // allcharacters.forEach((link) => {
-//   //   console.log(link);
-//   //   fetch(link)
-//   //     .then((res) => res.json())
-//   //     .then((ex) => console.log(ex.gender));
-//   // });
-// }
 
 beforeClick();
