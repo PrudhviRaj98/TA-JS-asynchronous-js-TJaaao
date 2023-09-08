@@ -9,7 +9,6 @@ function displayUI(data) {
   let h3 = document.createElement('h3');
   h3.innerHTML = data.authors;
 
-  console.log(set);
   let button = document.createElement('button');
   button.innerText = `Show Characters : ${data.characters.length} `;
 
